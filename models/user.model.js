@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcrypt');
-const { roles } = require('../config/roles');
 
 const userSchema = mongoose.Schema(
   {
@@ -9,17 +8,36 @@ const userSchema = mongoose.Schema(
       type: String,
       required: true,
       trim: true,
+      default: '',
     },
     lastName: {
         type: String,
         required: true,
         trim: true,
+        default: '',
     },
-    phone: {
+    city: {
+      type: String,
+      required: true,
+      trim: true,
+      default: 'current location',
+  },
+   state: {
+    type: String,
+    required: true,
+    trim: true,
+    default: 'state',
+},
+  phone: {
       type: String,
       required: true,
       unique: true,
-      trim: true
+      trim: true,
+      default: '+234',
+    },
+    isArtisan: {
+      type: Boolean,
+      default: false,
     },
     email: {
       type: String,
@@ -43,11 +61,6 @@ const userSchema = mongoose.Schema(
           throw new Error('Password must contain at least one letter and one number');
         }
       }
-    },
-    role: {
-      type: String,
-      enum: roles,
-      default: 'user',
     }
   },
   {
