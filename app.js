@@ -30,7 +30,11 @@ passport.use('jwt', jwtStrategy);
 app.use('/api/v1/auth', AuthRoutes);
 app.use('/api/v1', PostRoutes);
 
-
+app.get('/', (req, res) => {
+    res.send({
+        message: 'Welcome to the artik API'
+    });
+})
 // send back a 404 error for any unknown api request
 app.use((req, res, next) => {
     next(new ApiError(httpStatus.NOT_FOUND, 'Not found'));
