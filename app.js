@@ -37,7 +37,7 @@ app.get('/', (req, res) => {
 })
 // send back a 404 error for any unknown api request
 app.use((req, res, next) => {
-    next(new ApiError(httpStatus.NOT_FOUND, 'Not found'));
+    next(new ApiError(httpStatus.NOT_FOUND, 'artik does Not found the api route'));
 });
 
 // convert error to ApiError, if needed
