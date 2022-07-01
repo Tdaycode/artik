@@ -6,7 +6,7 @@ const cors = require("cors");
 const { jwtStrategy } = require('./config/passport');
 const AuthRoutes = require('./routes/auth.route');
 const PostRoutes = require('./routes/post.route');
-const DocsRoute = require('./routes/docs.route');
+
 const ApiError = require('./utils/ApiError');
 const { errorConverter, errorHandler } = require('./middleware/error');
 
@@ -30,10 +30,6 @@ passport.use('jwt', jwtStrategy);
 app.use('/api/v1/auth', AuthRoutes);
 app.use('/api/v1', PostRoutes);
 
-// Documentation routes available only in development mode
-if (process.env.NODE_ENV !== 'production') {
-    app.use('/docs/v1', DocsRoute);
-}
 
 // send back a 404 error for any unknown api request
 app.use((req, res, next) => {

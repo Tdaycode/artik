@@ -1,7 +1,7 @@
 {
-  "name": "talentql_assessment",
+  "name": "artik",
   "version": "1.0.0",
-  "description": "TalentQL Junior NodeJS Assessment",
+  "description": "artik",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
