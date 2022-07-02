@@ -1,6 +1,8 @@
 const httpStatus = require('http-status');
 const User = require('../models/user.model');
+const Token = require('../models/token.model');
 const ApiError = require('../utils/ApiError');
+const {tokenTypes} = require('../config/tokens');
 
 /**
  * Create a user
@@ -43,6 +45,8 @@ const loginUserWithEmailORPhone = async (login, password) => {
  */
 const logout = async (refreshToken) => {
   const refreshTokenDoc = await Token.findOne({ token: refreshToken, type: tokenTypes.REFRESH, blacklisted: false });
+  console.log(tokenTypes.REFRESH);  
+  console.log(refreshTokenDoc);
   if (!refreshTokenDoc) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Not found');
   }

@@ -46,6 +46,9 @@ src\
 POSTMAN 
 https://documenter.getpostman.com/view/17159517/Uz5NiY4u
 
+## API LINK
+https://artikapp.herokuapp.com/
+
 
 
 ## Validation
