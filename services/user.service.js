@@ -18,6 +18,15 @@ const createUser = async (userBody) => {
   user.password = undefined
   return user;
 };
+const createArtisan = async (artisanBody) => { 
+  if (await User.isEmailTaken(artisanBody.email)) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Email already taken.');
+  }
+  const user = await User.create({...artisanBody, isArtisan: true});
+  user.password = undefined
+  return user;
+
+}
 
 /**
  * Login with Phone or email
@@ -91,5 +100,6 @@ module.exports = {
   loginUserWithEmailORPhone,
   logout,
   refreshAuth,
-  updateUser
+  updateUser,
+  createArtisan
 };
