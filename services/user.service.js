@@ -12,6 +12,7 @@ const createUser = async (userBody) => {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Email already taken.');
   }
   const user = await User.create(userBody);
+  user.password = undefined
   return user;
 };
 
@@ -31,6 +32,7 @@ const loginUserWithEmailORPhone = async (login, password) => {
   if (!user || !(await user.isPasswordMatch(password))) {
     throw new ApiError(httpStatus.UNAUTHORIZED, 'Incorrect login or password');
   }
+  user.password = undefined
   return user;
 };
 

@@ -10,7 +10,7 @@ const register = {
     phone: Joi.string().required(),
     city:Joi.string().required(),
     state:Joi.string().required(),
-  }),
+  }).options({ allowUnknown: true }),
 };
 
 const login = {
