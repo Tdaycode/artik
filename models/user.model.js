@@ -39,6 +39,18 @@ const userSchema = mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    skill:{
+      type: String,
+      default: '',      
+    },
+    experience: {
+      type: String,
+      default: '',
+    },
+    workshopAddress: {
+      type: String,
+      default: '',
+    },
     email: {
       type: String,
       required: true,
