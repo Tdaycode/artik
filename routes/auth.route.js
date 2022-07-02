@@ -1,4 +1,5 @@
 const express = require('express');
+const auth = require('../middleware/auth');
 const validate = require('../middleware/validate');
 const authValidation = require('../validations/auth.validation');
 const authController = require('../controllers/auth.controller');
@@ -9,6 +10,7 @@ router.post('/register', validate(authValidation.register), authController.regis
 router.post('/login', validate(authValidation.login), authController.login);
 router.post('/logout', validate(authValidation.logout), authController.logout);
 router.post('/refresh-tokens', validate(authValidation.refreshTokens), authController.refreshTokens);
+router.post('/update-user/:userId', authController.updateUsers);
 
 module.exports = router;
 

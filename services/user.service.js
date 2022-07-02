@@ -76,10 +76,20 @@ const refreshAuth = async (refreshToken) => {
   }
 };
 
+const updateUser = async (userId, userBody) => { 
+  const user = await User.findById(userId);
+  if (!user) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
+  }
+  const updatedUser = await User.findOneAndUpdate({ _id: userId }, userBody, { new: true });
+  return updatedUser
+}
+
 
 module.exports = {
   createUser,
   loginUserWithEmailORPhone,
   logout,
-  refreshAuth
+  refreshAuth,
+  updateUser
 };

@@ -27,10 +27,16 @@ const refreshTokens = catchAsync(async (req, res) => {
   res.send({ ...tokens });
 });
 
+const updateUsers = catchAsync(async (req, res) => { 
+  const user = await userService.updateUser(req.params.userId,req.body);
+  res.status(httpStatus.OK).send(user);
+})
+
 
 module.exports = {
   register,
   login,
   logout,
+  updateUsers,
   refreshTokens
 };

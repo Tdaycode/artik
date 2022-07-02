@@ -5,7 +5,7 @@ const passport = require('passport');
 const cors = require("cors");
 const { jwtStrategy } = require('./config/passport');
 const AuthRoutes = require('./routes/auth.route');
-const PostRoutes = require('./routes/post.route');
+
 
 const ApiError = require('./utils/ApiError');
 const { errorConverter, errorHandler } = require('./middleware/error');
@@ -28,7 +28,7 @@ app.use(passport.initialize());
 passport.use('jwt', jwtStrategy);
 
 app.use('/api/v1/auth', AuthRoutes);
-app.use('/api/v1', PostRoutes);
+
 
 app.get('/', (req, res) => {
     res.send({
