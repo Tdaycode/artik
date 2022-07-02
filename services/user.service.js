@@ -98,11 +98,21 @@ const updateUser = async (userId, userBody) => {
   return updatedUser
 }
 
+const editUser = async (userId, userBody) => { 
+  const user = await User.findById(userId);
+  if (!user) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
+  }
+  const updatedUser = await User.findOneAndUpdate({ _id: userId }, userBody, { new: true }).select('-password');
+  return updatedUser
+}
+
 
 module.exports = {
   createUser,
   loginUserWithEmailORPhone,
   logout,
+  editUser,
   refreshAuth,
   updateUser,
   createArtisan

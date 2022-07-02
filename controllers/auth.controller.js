@@ -36,11 +36,16 @@ const createArtisan = catchAsync(async (req, res) => {
   res.status(httpStatus.OK).send(user);
 })
 
+const editUser = catchAsync(async (req, res) => { 
+  const user = await userService.editUser(req.user._id,req.body);
+  res.status(httpStatus.OK).send(user);
+})
 
 module.exports = {
   register,
   login,
   logout,
+  editUser,
   updateUsers,
   refreshTokens,
   createArtisan

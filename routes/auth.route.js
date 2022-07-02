@@ -11,6 +11,7 @@ router.post('/register/artisan', validate(authValidation.register), authControll
 router.post('/login', validate(authValidation.login), authController.login);
 router.post('/logout', validate(authValidation.logout), authController.logout);
 router.post('/refresh-tokens', validate(authValidation.refreshTokens), authController.refreshTokens);
-router.post('/update-user/artisan',protect, artisan, authController.updateUsers);
+router.put('/update-user/artisan',protect, artisan, authController.updateUsers);
+router.put('/update-user/user',protect, authController.editUser);
 
 module.exports = router;
