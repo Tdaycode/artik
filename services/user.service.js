@@ -3,6 +3,7 @@ const User = require('../models/user.model');
 const Token = require('../models/token.model');
 const ApiError = require('../utils/ApiError');
 const {tokenTypes} = require('../config/tokens');
+const tokenService = require('../services/token.service');
 
 /**
  * Create a user
@@ -60,8 +61,11 @@ const logout = async (refreshToken) => {
  */
 const refreshAuth = async (refreshToken) => {
   try {
+    console.log('here')
     const refreshTokenDoc = await tokenService.verifyToken(refreshToken, tokenTypes.REFRESH);
+    console.log(refreshTokenDoc);
     const user = await User.findById(refreshTokenDoc.user);
+
     if (!user) {
       throw new Error();
     }
