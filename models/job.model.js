@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 const jobSchema = mongoose.Schema(
   {
@@ -30,6 +31,10 @@ const jobSchema = mongoose.Schema(
       unique: true,
       default: Date.now(),
     },
+    isOpen:{
+      type:Boolean,
+      default:true,
+    }
    
   },
   {

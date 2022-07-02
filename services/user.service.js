@@ -2,6 +2,7 @@ const httpStatus = require('http-status');
 const User = require('../models/user.model');
 const Token = require('../models/token.model');
 const ApiError = require('../utils/ApiError');
+const Job = require('../models/job.model');
 const jwt = require('jsonwebtoken')
 const {tokenTypes} = require('../config/tokens');
 const tokenService = require('../services/token.service');
@@ -107,10 +108,20 @@ const editUser = async (userId, userBody) => {
   return updatedUser
 }
 
+const postJob = async (userId, jobBody) => { 
+  const user = await User.findById(userId);
+  if (!user) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
+  }
+ const job = await Job.create({...jobBody, postedBy: userId});
+  return job
+}
+
 
 module.exports = {
   createUser,
   loginUserWithEmailORPhone,
+  postJob,
   logout,
   editUser,
   refreshAuth,

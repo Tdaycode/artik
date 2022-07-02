@@ -13,5 +13,6 @@ router.post('/logout', validate(authValidation.logout), authController.logout);
 router.post('/refresh-tokens', validate(authValidation.refreshTokens), authController.refreshTokens);
 router.put('/update-user/artisan',protect, artisan, authController.updateUsers);
 router.put('/update-user/user',protect, authController.editUser);
+router.post('/post-job', protect, authController.postJobs);
 
 module.exports = router;

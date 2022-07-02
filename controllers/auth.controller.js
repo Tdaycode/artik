@@ -41,11 +41,16 @@ const editUser = catchAsync(async (req, res) => {
   res.status(httpStatus.OK).send(user);
 })
 
+const postJobs = catchAsync(async (req, res) => { 
+  const job = await userService.postJob(req.user._id,req.body);
+  res.status(httpStatus.CREATED).send(job);
+})
 module.exports = {
   register,
   login,
   logout,
   editUser,
+  postJobs,
   updateUsers,
   refreshTokens,
   createArtisan
