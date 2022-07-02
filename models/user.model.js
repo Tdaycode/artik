@@ -39,6 +39,11 @@ const userSchema = mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    isVerify: {
+      type: Boolean,
+      default: false,
+    },
+
     skill:{
       type: String,
       default: '',      

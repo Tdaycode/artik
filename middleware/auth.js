@@ -15,8 +15,9 @@ const protect = asyncHandler(async (req, res, next) => {
       token = req.headers.authorization.split(' ')[1]
 
       const decoded = jwt.verify(token, process.env.JWT_SECRET)
+      console.log(decoded.user._id)
 
-      req.user = await User.findOne({"_id": decoded.user.id}).select("-password")
+      req.user = await User.findOne({_id: decoded.user._id}).select("-password")
 
       if(req.user == null) throw new Error('Not authorized, user not found')
 
@@ -49,7 +50,7 @@ const artisan = (req, res, next) => {
   } else {
     return res.status(401).json({
       "status": "error",
-      "message": "Only vendors are authorized"
+      "message": "Only artisans are authorized"
     })
   }
 }

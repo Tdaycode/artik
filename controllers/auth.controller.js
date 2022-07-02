@@ -5,7 +5,7 @@ const tokenService = require('../services/token.service');
 
 const register = catchAsync(async (req, res) => {
   const user = await userService.createUser(req.body);
-  res.status(httpStatus.CREATED).send({ user, tokens });
+  res.status(httpStatus.CREATED).send( user );
 });
 
 const login = catchAsync(async (req, res) => {
@@ -26,7 +26,7 @@ const refreshTokens = catchAsync(async (req, res) => {
 });
 
 const updateUsers = catchAsync(async (req, res) => { 
-  const user = await userService.updateUser(req.params.userId,req.body);
+  const user = await userService.updateUser(req.user._id,req.body);
   res.status(httpStatus.OK).send(user);
 })
 

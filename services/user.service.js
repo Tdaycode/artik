@@ -16,16 +16,18 @@ const createUser = async (userBody) => {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Email already taken.');
   }
   const user = await User.create(userBody);
+  var jwtToken = jwt.sign({ user }, process.env.JWT_SECRET, {expiresIn:'30d'});
   user.password = undefined
-  return user;
+  return {user, jwtToken};
 };
 const createArtisan = async (artisanBody) => { 
   if (await User.isEmailTaken(artisanBody.email)) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Email already taken.');
   }
   const user = await User.create({...artisanBody, isArtisan: true});
+  var jwtToken = jwt.sign({ user }, process.env.JWT_SECRET, {expiresIn:'30d'});
   user.password = undefined
-  return user;
+  return {user, jwtToken};
 
 }
 
@@ -92,7 +94,7 @@ const updateUser = async (userId, userBody) => {
   if (!user) {
     throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
   }
-  const updatedUser = await User.findOneAndUpdate({ _id: userId }, userBody, { new: true });
+  const updatedUser = await User.findOneAndUpdate({ _id: userId }, userBody, { new: true }).select('-password');
   return updatedUser
 }
 
