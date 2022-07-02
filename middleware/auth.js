@@ -1,22 +1,60 @@
-const passport = require('passport');
-const httpStatus = require('http-status');
-const ApiError = require('../utils/ApiError');
+const jwt = require('jsonwebtoken')
+const asyncHandler = require('express-async-handler')
+const User = require('../models/user.model')
+require('dotenv').config();
 
-const verifyCallback = (req, resolve, reject) => async (err, user, info) => {
-  if (err || info || !user) {
-    return reject(new ApiError(httpStatus.UNAUTHORIZED, 'Please authenticate'));
+const protect = asyncHandler(async (req, res, next) => {
+
+  let token
+
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith('Bearer')
+  ) {
+    try {
+      token = req.headers.authorization.split(' ')[1]
+
+      const decoded = jwt.verify(token, process.env.JWT_SECRET)
+
+      req.user = await User.findOne({"_id": decoded.user.id}).select("-password")
+
+      if(req.user == null) throw new Error('Not authorized, user not found')
+
+      next()
+
+    } catch (error) {
+      console.log(error)
+      return res.status(401).json({
+        "status": "error",
+        "message": error.message
+      })
+    }
   }
-  req.user = user;
 
-  resolve();
-};
+  if (!token) {
+    return res.status(401).json({
+      "status": "error",
+      "message": "Not authorized, no token"
+    })
+  }
+})
 
-const auth = () => async (req, res, next) => {
-  return new Promise((resolve, reject) => {
-    passport.authenticate('jwt', { session: false }, verifyCallback(req, resolve, reject))(req, res, next);
-  })
-    .then(() => next())
-    .catch((err) => next(err));
-};
 
-module.exports = auth;
+
+
+const artisan = (req, res, next) => {
+
+  if (req.user && req.user.isArtisan) {
+    next()
+  } else {
+    return res.status(401).json({
+      "status": "error",
+      "message": "Only vendors are authorized"
+    })
+  }
+}
+
+
+
+
+module.exports = {protect, artisan}

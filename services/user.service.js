@@ -2,6 +2,7 @@ const httpStatus = require('http-status');
 const User = require('../models/user.model');
 const Token = require('../models/token.model');
 const ApiError = require('../utils/ApiError');
+const jwt = require('jsonwebtoken')
 const {tokenTypes} = require('../config/tokens');
 const tokenService = require('../services/token.service');
 
@@ -44,8 +45,9 @@ const loginUserWithEmailORPhone = async (login, password) => {
   if (!user || !(await user.isPasswordMatch(password))) {
     throw new ApiError(httpStatus.UNAUTHORIZED, 'Incorrect login or password');
   }
+  var jwtToken = jwt.sign({ user }, process.env.JWT_SECRET, {expiresIn:'30d'});
   user.password = undefined
-  return user;
+  return {user, jwtToken};
 };
 
 /**
