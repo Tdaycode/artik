@@ -21,6 +21,12 @@ router.delete('/deleteJob/:id', protect, asyncHandler(async (req, res) => {
 
 }));
 
+router.get('/all-job', protect, asyncHandler(async (req, res) => {
+  const jobs = await Job.find({postedBy:req.user._id});
+  if(!jobs) {return res.status(404).send('No jobs found');}
+  res.send(jobs);
+}))
+
 
 
 module.exports = router;
