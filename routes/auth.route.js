@@ -14,5 +14,6 @@ router.post('/refresh-tokens', validate(authValidation.refreshTokens), authContr
 router.put('/update-user/artisan',protect, artisan, authController.updateUsers);
 router.put('/update-user/user',protect, authController.editUser);
 router.post('/post-job', protect, authController.postJobs);
+router.get('/get-single-user', protect, authController.getSingleUsers);
 
 module.exports = router;

@@ -1,7 +1,6 @@
 const httpStatus = require('http-status');
 const catchAsync = require('../utils/catchAsync');
 const userService = require('../services/user.service');
-const tokenService = require('../services/token.service');
 
 const register = catchAsync(async (req, res) => {
   const user = await userService.createUser(req.body);
@@ -41,6 +40,11 @@ const editUser = catchAsync(async (req, res) => {
   res.status(httpStatus.OK).send(user);
 })
 
+const getSingleUsers = catchAsync(async (req, res) => { 
+  const user = await userService.getSingleUser(req.user);
+  res.status(httpStatus.OK).send(user);
+})
+
 const postJobs = catchAsync(async (req, res) => { 
   const job = await userService.postJob(req.user._id,req.body);
   res.status(httpStatus.CREATED).send(job);
@@ -53,5 +57,6 @@ module.exports = {
   postJobs,
   updateUsers,
   refreshTokens,
-  createArtisan
+  createArtisan,
+  getSingleUsers
 };

@@ -6,6 +6,7 @@ const Job = require('../models/job.model');
 const jwt = require('jsonwebtoken')
 const {tokenTypes} = require('../config/tokens');
 const tokenService = require('../services/token.service');
+const { get } = require('mongoose');
 
 /**
  * Create a user
@@ -52,6 +53,15 @@ const loginUserWithEmailORPhone = async (login, password) => {
   user.password = undefined
   return {user, jwtToken};
 };
+
+const getSingleUser = async (userDetails) => { 
+  const user = userDetails
+  if (!user) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
+  }
+  return user
+}
+
 
 /**
  * Logout
@@ -122,6 +132,7 @@ module.exports = {
   createUser,
   loginUserWithEmailORPhone,
   postJob,
+  getSingleUser,
   logout,
   editUser,
   refreshAuth,
