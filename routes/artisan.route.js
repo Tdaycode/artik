@@ -21,7 +21,7 @@ router.get('/all-artisan', asyncHandler(async (req, res) => {
 }))
 
 router.get('/all-job', protect, artisan, asyncHandler(async (req, res) => {
-  const jobs = await Job.find().select('-password');
+  const jobs = await Job.find().populate('postedBy' , '-password');
   if(!jobs){ return res.status(404).send('No jobs found');}
   res.send(jobs);
 }))
