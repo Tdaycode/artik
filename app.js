@@ -7,6 +7,7 @@ const { jwtStrategy } = require('./config/passport');
 const AuthRoutes = require('./routes/auth.route');
 const ArtisanRoutes = require('./routes/artisan.route');
 const JobRoutes = require('./routes/job.route');
+const BookingRoutes = require('./routes/booking.route');
 
 
 const ApiError = require('./utils/ApiError');
@@ -32,6 +33,7 @@ passport.use('jwt', jwtStrategy);
 app.use('/api/v1/auth', AuthRoutes);
 app.use('/api/v1/artisan', ArtisanRoutes);
 app.use('/api/v1/job', JobRoutes);
+app.use('/api/v1/booking', BookingRoutes);
 
 
 app.get('/', (req, res) => {

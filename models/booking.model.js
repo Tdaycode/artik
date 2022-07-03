@@ -3,11 +3,11 @@ const mongoose = require('mongoose');
 
 const bookSchema = mongoose.Schema(
   {
-    clientID: {
+    client: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User'
     },
-    artisanID: {
+    artisan: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User'
     },
@@ -39,6 +39,11 @@ const bookSchema = mongoose.Schema(
     required: true,
     trim: true,
     default: '',
+  },
+  detail: { 
+    type: String,
+    required: true,
+    trim: true,
   }
    
   },

@@ -21,17 +21,17 @@ router.post('/post-job', protect, authController.postJobs);
 router.get('/get-single-user', protect, authController.getSingleUsers);
 
 // Book artisan
-router.post('/book-artisan/:artisanId', protect, asyncHandler(async (req, res) => {
-  const {location,budgetCost, clientAddress} = req.body;
-  const {artisanId} = req.params;
+router.post('/book-artisan/:artisan', protect, asyncHandler(async (req, res) => {
+  const {location,budgetCost, clientAddress, detail} = req.body;
   const booking = await Booking.create({
     clientName: `${req.user.firstName} ${req.user.lastName}`,
-    clientId: req.user._id,
+    client: req.user._id,
     clientAddress,
     location,
     budgetCost,
     location,
-    artisanId,
+    detail,
+    artisan:req.params.artisan,
   });
   res.status(httpStatus.OK).send(booking);
 
