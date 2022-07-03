@@ -44,6 +44,10 @@ const bookSchema = mongoose.Schema(
     type: String,
     required: true,
     trim: true,
+  },
+  isAccepted: { 
+    type: Boolean,
+    default: false,
   }
    
   },
