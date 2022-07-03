@@ -13,6 +13,13 @@ router.get('/artisan/get-bookings', protect, artisan, asyncHandler(async (req, r
   res.send(bookings);
 }))
 
+router.get('/user/get-bookings', protect, asyncHandler(async (req, res) => {
+  const bookings = await Booking.find({client:req.user._id}).populate('artisan', '-password');
+  if(!bookings) {return res.status(404).send('No bookings found');}
+  res.send(bookings);
+
+}))
+
 
 
 
