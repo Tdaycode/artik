@@ -14,6 +14,13 @@ router.get('/getSingleJob/:id', protect, artisan, asyncHandler(async (req, res) 
   res.status(httpStatus.OK).send(job);
 }));
 
+router.delete('/deleteJob/:id', protect, asyncHandler(async (req, res) => {
+  const job = await Job.findOneAndDelete({_id:req.params.id, postedBy:req.user._id});
+  if(!job) {return res.status(404).send('No job with such id found');}
+  res.status(httpStatus.OK).send("job deleted");
+
+}));
+
 
 
 module.exports = router;

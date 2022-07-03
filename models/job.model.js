@@ -28,7 +28,6 @@ const jobSchema = mongoose.Schema(
   deadline: {
       type: Date,
       required: true,
-      unique: true,
       default: Date.now(),
     },
     isOpen:{

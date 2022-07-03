@@ -13,5 +13,11 @@ router.get('/find/skill',  asyncHandler(async (req, res) => {
   res.send(users);
 }))
 
+router.get('/all-artisan', asyncHandler(async (req, res) => {
+  const users = await User.find({isArtisan:true}).select('-password');
+  if(!users) return res.status(404).send('No users  found');
+  res.send(users);
+}))
+
 module.exports = router
 
