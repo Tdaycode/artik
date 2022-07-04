@@ -30,9 +30,11 @@ router.put('/artisan/booking/accept-or-deny', protect, artisan, asyncHandler(asy
     booking.isAccepted = true;
     await booking.save();
 
-  } else {
+  } else if (status === 'rejected') {
     booking.isAccepted = false;
     await booking.save();
+  }else {
+    return res.status(400).send('Invalid status, should be rejected or accepted');
   }
 //  tayo
   res.send(booking);
