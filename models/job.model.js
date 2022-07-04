@@ -33,6 +33,12 @@ const jobSchema = mongoose.Schema(
     isOpen:{
       type:Boolean,
       default:true,
+    },
+    title:{
+      type:String,
+      required:true,
+      trim:true,
+      default:'',
     }
    
   },
