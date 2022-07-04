@@ -34,7 +34,7 @@ router.put('/artisan/booking/accept-or-deny', protect, artisan, asyncHandler(asy
     booking.isAccepted = false;
     await booking.save();
   }
- 
+//  tayo
   res.send(booking);
 }))
 
