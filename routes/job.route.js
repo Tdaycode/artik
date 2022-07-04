@@ -27,6 +27,13 @@ router.get('/all-job', protect, asyncHandler(async (req, res) => {
   res.send(jobs);
 }))
 
+router.get('/all-jobs', protect, asyncHandler(async (req, res) => {
+  const jobs = await Job.find();
+  if(!jobs) {return res.status(404).send('No jobs found');}
+  res.send(jobs);
+}))
+
+
 
 
 
