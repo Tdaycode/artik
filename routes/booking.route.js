@@ -22,23 +22,23 @@ router.get('/user/get-bookings', protect, asyncHandler(async (req, res) => {
 
 }))
 
-router.put('/artisan/booking/accept-or-deny', protect, artisan, asyncHandler(async (req, res) => {
-  const {bookingId, status} = req.body;
-  const booking = await Booking.findById(bookingId);
-  if(!booking) {return res.status(404).send('No booking found');}
-  if(status === 'accepted'){ 
-    booking.isAccepted = true;
-    await booking.save();
+// router.put('/artisan/booking/accept-or-deny', protect, artisan, asyncHandler(async (req, res) => {
+//   const {bookingId, status} = req.body;
+//   const booking = await Booking.findById(bookingId);
+//   if(!booking) {return res.status(404).send('No booking found');}
+//   if(status === 'accepted'){ 
+//     booking.isAccepted = true;
+//     await booking.save();
 
-  } else if (status === 'rejected') {
-    booking.isAccepted = false;
-    await booking.save();
-  }else {
-    return res.status(400).send('Invalid status, should be rejected or accepted');
-  }
-//  tayo
-  res.send(booking);
-}))
+//   } else if (status === 'rejected') {
+//     booking.isAccepted = false;
+//     await booking.save();
+//   }else {
+//     return res.status(400).send('Invalid status, should be rejected or accepted');
+//   }
+// //  tayo
+//   res.send(booking);
+// }))
 
 
 
