@@ -1,6 +1,8 @@
 const express = require('express');
 const User = require('../models/user.model');
 const Job = require('../models/job.model');
+const ApiError = require('../utils/apiError');
+const httpStatus = require('http-status');
 const Booking = require('../models/booking.model');
 const asyncHandler = require('express-async-handler');
 const {protect, artisan}= require('../middleware/auth');
@@ -18,6 +20,22 @@ router.get('/user/get-bookings', protect, asyncHandler(async (req, res) => {
   if(!bookings) {return res.status(404).send('No bookings found');}
   res.send(bookings);
 
+}))
+
+router.put('/artisan/booking/accept-or-deny', protect, artisan, asyncHandler(async (req, res) => {
+  const {bookingId, status} = req.body;
+  const booking = await Booking.findById(bookingId);
+  if(!booking) {return res.status(404).send('No booking found');}
+  if(status === 'accepted'){ 
+    booking.isAccepted = true;
+    await booking.save();
+
+  } else {
+    booking.isAccepted = false;
+    await booking.save();
+  }
+ 
+  res.send(booking);
 }))
 
 

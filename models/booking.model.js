@@ -13,36 +13,36 @@ const bookSchema = mongoose.Schema(
     },
     clientName: {
         type: String,
-        required: true,
+     
         trim: true,
         default: '',
     },
     location: {
       type: String,
-      required: true,
+     
       trim: true,
       default: 'current location',
   },
    budgetCost: {
     type: Number,
-    required: true,
+   
     trim: true,
     default: 0,
 },
   deadline: {
       type: Date,
-      required: true,
+    
       default: Date.now(),
     },
    clientAddress: {
     type: String,
-    required: true,
+
     trim: true,
     default: '',
   },
   detail: { 
     type: String,
-    required: true,
+ 
     trim: true,
   },
   isAccepted: { 
