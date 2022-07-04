@@ -15,7 +15,7 @@ router.get('/find/skill',  asyncHandler(async (req, res) => {
 }))
 router.get('/find/location',  asyncHandler(async (req, res) => {
   const {location} = req.body;
-  const users = await User.find({location:location, isArtisan:true}).select('-password');
+  const users = await User.find({city:location, isArtisan:true}).select('-password');
   if(!users) return res.status(404).send('No users with location found');
   res.send(users);
 }))
